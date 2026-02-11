@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+   - name: raw #Renaming as an alias
+     schema: gz_raw_data #Path of the table in BQ
+     description: greenwez raw data source #optionnal 
+     tables:
+
+         - name: sales #Renaming as an alias
+           identifier: raw_gz_sales #What is the exact name of the table in  BQ
+           description: sales of greewneez / we have one row per product_id found in each order_id
+           columns:
+             - name: "(orders_id || '-' || pdt_id)"
+               description: primary key of the table
+               tests:
+                 - unique
+                 - not_null
+
+         - name: product
+           identifier: raw_gz_product
+           description: purchase_price by products_id
+           columns:
+             - name: products_id
+               description: primary key of the table
+               tests:
+                 - unique
+                 - not_null
