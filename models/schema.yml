@@ -1,0 +1,37 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: gz_raw_data
+    description: greenweez raw data source
+    tables:
+      - name: sales
+        identifier: raw_gz_sales
+      - name: product
+        identifier: raw_gz_product
+      - name: ship
+        identifier: raw_gz_ship
+
+models:
+  - name: stg_raw_sales
+    columns:
+      - name: primary_key
+        description: unique identifier for each order-product
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_raw_product
+    columns:
+      - name: products_id
+        description: unique product id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_raw_ship
+    columns:
+      - name: orders_id
+        description: order id must exist
+        tests:
+          - not_null
